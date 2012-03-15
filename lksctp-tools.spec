@@ -1,0 +1,111 @@
+%define	major 1
+%define	libname %mklibname sctp %{major}
+%define develname %mklibname sctp -d
+
+Summary:	User-space access to Linux Kernel SCTP
+Name:		lksctp-tools
+Version:	1.0.11
+Release:	1
+# src/apps/bindx_test.C is GPLv2, I've asked upstream for clarification
+License:	GPLv2 and GPLv2+ and LGPLv2 and MIT
+Group:		System/Libraries
+URL:		http://lksctp.sourceforge.net
+Source0:	 http://downloads.sourceforge.net/lksctp/%{name}-%{version}.tar.gz
+Patch0:		lksctp-tools-1.0.6-libdir.patch
+BuildRequires:	autoconf automake libtool
+Requires:	%{libname} = %{version}-%{release}
+
+%description
+This is the lksctp-tools package for Linux Kernel SCTP (Stream Control
+Transmission Protocol) Reference Implementation.
+
+This package is intended to supplement the Linux Kernel SCTP Reference
+Implementation now available in the Linux kernel source tree in
+versions 2.5.36 and following.  For more information on LKSCTP see the
+package documentation README file, section titled "LKSCTP - Linux
+Kernel SCTP."
+
+This package contains the command-line tools.
+
+%package -n	%{libname}
+Summary:	Shared User-space access to Linux Kernel SCTP library
+Group:		System/Libraries
+
+%description -n	%{libname}
+This is the lksctp-tools package for Linux Kernel SCTP (Stream Control
+Transmission Protocol) Reference Implementation.
+
+This package is intended to supplement the Linux Kernel SCTP Reference
+Implementation now available in the Linux kernel source tree in
+versions 2.5.36 and following.  For more information on LKSCTP see the
+package documentation README file, section titled "LKSCTP - Linux
+Kernel SCTP."
+
+This package contains the shared library.
+
+%package -n	%{develname}
+Summary:	Development files for lksctp-tools
+Group:		Development/C
+Requires:	%{libname} = %{version}-%{release}
+Provides:	%{name}-devel = %{version}-%{release}
+Provides:	sctp-devel = %{version}-%{release}
+
+%description -n	%{develname}
+Development files for lksctp-tools which include man pages, header files,
+static libraries, symlinks to dynamic libraries and some tutorial source code.
+
+%package	doc
+Summary:	Documents pertaining to SCTP
+Group:		System Environment/Libraries
+
+%description	doc
+Documents pertaining to LKSCTP & SCTP in general (IETF RFC's & Internet
+Drafts).
+
+%prep
+
+%setup -q
+%patch0 -p1
+
+%build
+autoreconf -fi
+
+%configure \
+    --disable-static
+
+# remove rpath from libtool
+sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
+sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
+
+%make
+
+%install
+
+rm -f doc/rfc2960.txt doc/states.txt
+
+%makeinstall_std INSTALL="install -p"
+
+# cleanups
+find %{buildroot}%{_libdir}/ -name "*.*a"  | xargs rm -f
+rm -rf %{buildroot}%{_datadir}/doc/lksctp-tools
+
+%files
+%{_bindir}/*
+
+%files -n %{libname}
+%doc AUTHORS ChangeLog COPYING* README
+%{_libdir}/lib*.so.%{major}*
+%dir %{_libdir}/lksctp-tools/
+%{_libdir}/lksctp-tools/libwithsctp.so.*
+
+%files -n %{develname}
+%{_includedir}/*
+%{_libdir}/*.so
+%{_libdir}/lksctp-tools/*.so
+%{_datadir}/lksctp-tools/
+%{_mandir}/man3/*
+%{_mandir}/man7/*
+
+%files doc
+%doc doc/*.txt
+
