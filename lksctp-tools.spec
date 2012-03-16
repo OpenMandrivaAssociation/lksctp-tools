@@ -5,7 +5,7 @@
 Summary:	User-space access to Linux Kernel SCTP
 Name:		lksctp-tools
 Version:	1.0.11
-Release:	2
+Release:	3
 # src/apps/bindx_test.C is GPLv2, I've asked upstream for clarification
 License:	GPLv2 and GPLv2+ and LGPLv2 and MIT
 Group:		System/Libraries
@@ -57,7 +57,7 @@ static libraries, symlinks to dynamic libraries and some tutorial source code.
 
 %package	doc
 Summary:	Documents pertaining to SCTP
-Group:		System Environment/Libraries
+Group:		System/Libraries
 
 %description	doc
 Documents pertaining to LKSCTP & SCTP in general (IETF RFC's & Internet
