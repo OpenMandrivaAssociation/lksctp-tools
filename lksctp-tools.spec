@@ -111,7 +111,20 @@ rm -rf %{buildroot}%{_datadir}/doc/lksctp-tools
 %files doc
 %doc doc/*.txt
 
+
+
 %changelog
+* Fri Mar 16 2012 Oden Eriksson <oeriksson@mandriva.com> 1.0.11-4
++ Revision: 785263
+- rebuilt for main
+
+* Fri Mar 16 2012 Oden Eriksson <oeriksson@mandriva.com> 1.0.11-3
++ Revision: 785177
+- gotta adapt rh groups...
+- add SCTP_SENDER_DRY_EVENT support
+- import lksctp-tools
+
+
 * Thu Mar 15 2012 Oden Eriksson <oeriksson@mandriva.com> 1.0.11-0
 - initial Mandriva package (fedora import)
 
