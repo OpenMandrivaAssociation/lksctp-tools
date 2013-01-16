@@ -13,8 +13,16 @@ URL:		http://lksctp.sourceforge.net
 Source0:	 http://downloads.sourceforge.net/lksctp/%{name}-%{version}.tar.gz
 Patch0:		lksctp-tools-1.0.6-libdir.patch
 Patch1:		lksctp-tools-1.0.11-SCTP_SENDER_DRY_EVENT.diff
+Patch2:		lksctp-tools-automake-1.13.patch
 BuildRequires:	autoconf automake libtool
 Requires:	%{libname} = %{version}-%{release}
+
+%track
+prog %name = {
+	url = http://sourceforge.net/projects/lksctp/
+	regex = lksctp-tools-(__VER__)\.tar\.gz
+	version = %version
+}
 
 %description
 This is the lksctp-tools package for Linux Kernel SCTP (Stream Control
@@ -68,11 +76,12 @@ Drafts).
 %setup -q
 %patch0 -p1
 %patch1 -p0
+%patch2 -p1 -b .am113~
 
 %build
 autoreconf -fi
 
-%configure \
+CFLAGS="%optflags -fuse-ld=bfd" %configure \
     --disable-static
 
 # remove rpath from libtool
