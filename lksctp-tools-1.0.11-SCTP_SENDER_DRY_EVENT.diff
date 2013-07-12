@@ -1,5 +1,5 @@
---- src/include/netinet/sctp.h	2009-10-24 02:43:44.000000000 +0200
-+++ src/include/netinet/sctp.h.oden	2012-03-15 09:04:29.504341900 +0100
+--- ./src/include/netinet/sctp.h	2009-10-24 02:43:44.000000000 +0200
++++ ./src/include/netinet/sctp.h.oden	2012-03-15 09:04:29.504341900 +0100
 @@ -413,6 +413,20 @@ struct sctp_authkey_event {
  
  enum { SCTP_AUTH_NEWKEY = 0, };
