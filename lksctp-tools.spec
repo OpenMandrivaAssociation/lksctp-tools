@@ -4,16 +4,14 @@
 
 Summary:	User-space access to Linux Kernel SCTP
 Name:		lksctp-tools
-Version:	1.0.11
-Release:	9
+Version:	1.0.16
+Release:	1
 # src/apps/bindx_test.C is GPLv2, I've asked upstream for clarification
 License:	GPLv2 and GPLv2+ and LGPLv2 and MIT
 Group:		System/Libraries
 Url:		http://lksctp.sourceforge.net
-Source0:	 http://downloads.sourceforge.net/lksctp/%{name}-%{version}.tar.gz
-Patch0:		lksctp-tools-1.0.6-libdir.patch
-Patch1:		lksctp-tools-1.0.11-SCTP_SENDER_DRY_EVENT.diff
-Patch2:		lksctp-tools-automake-1.13.patch
+Source0:	http://downloads.sourceforge.net/lksctp/%{name}-%{version}.tar.gz
+Patch0:		lksctp-tools-1.0.16-libdir.patch
 BuildRequires:	libtool
 
 %track
