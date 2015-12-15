@@ -2,6 +2,8 @@
 %define	libname %mklibname sctp %{major}
 %define devname %mklibname sctp -d
 
+%define _disable_lto 1
+
 Summary:	User-space access to Linux Kernel SCTP
 Name:		lksctp-tools
 Version:	1.0.16
@@ -66,6 +68,7 @@ static libraries, symlinks to dynamic libraries and some tutorial source code.
 autoreconf -fi
 
 %build
+export CC=gcc
 
 CFLAGS="%optflags -fuse-ld=bfd" %configure \
     --disable-static
