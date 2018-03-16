@@ -86,7 +86,6 @@ rm -f doc/rfc2960.txt doc/states.txt
 %{_libdir}/lksctp-tools/libwithsctp.so.%{major}*
 
 %files -n %{devname}
-%doc %{_docdir}/%{name}
 %{_includedir}/*
 %{_libdir}/*.so
 %{_libdir}/lksctp-tools/*.so
