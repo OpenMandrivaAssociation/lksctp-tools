@@ -16,13 +16,6 @@ Source0:	http://downloads.sourceforge.net/lksctp/%{name}-%{version}.tar.gz
 Patch0:		lksctp-tools-1.0.16-libdir.patch
 BuildRequires:	libtool
 
-%track
-prog %{name} = {
-	url = http://sourceforge.net/projects/lksctp/
-	regex = lksctp-tools-(__VER__)\.tar\.gz
-	version = %{version}
-}
-
 %description
 This is the lksctp-tools package for Linux Kernel SCTP (Stream Control
 Transmission Protocol) Reference Implementation.
@@ -35,11 +28,11 @@ Kernel SCTP."
 
 This package contains the command-line tools.
 
-%package -n	%{libname}
+%package -n %{libname}
 Summary:	Shared User-space access to Linux Kernel SCTP library
 Group:		System/Libraries
 
-%description -n	%{libname}
+%description -n %{libname}
 This is the lksctp-tools package for Linux Kernel SCTP (Stream Control
 Transmission Protocol) Reference Implementation.
 
@@ -84,9 +77,6 @@ rm -f doc/rfc2960.txt doc/states.txt
 
 %makeinstall_std INSTALL="install -p"
 
-# cleanups
-rm -rf %{buildroot}%{_datadir}/doc/lksctp-tools
-
 %files
 %{_bindir}/*
 
@@ -96,8 +86,7 @@ rm -rf %{buildroot}%{_datadir}/doc/lksctp-tools
 %{_libdir}/lksctp-tools/libwithsctp.so.%{major}*
 
 %files -n %{devname}
-%doc AUTHORS ChangeLog COPYING* README
-%doc doc/*.txt
+%doc %{_docdir}/%{name}
 %{_includedir}/*
 %{_libdir}/*.so
 %{_libdir}/lksctp-tools/*.so
