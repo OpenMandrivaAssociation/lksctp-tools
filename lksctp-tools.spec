@@ -57,7 +57,7 @@ static libraries, symlinks to dynamic libraries and some tutorial source code.
 
 %prep
 %setup -q
-%apply_patches
+%autopatch -p1
 autoreconf -fi
 
 %build
