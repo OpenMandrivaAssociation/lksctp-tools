@@ -1,19 +1,25 @@
-%define	major 1
-%define	libname %mklibname sctp %{major}
+%define major 1
+%define libname %mklibname sctp %{major}
 %define devname %mklibname sctp -d
 
-%define _disable_lto 1
 
 Summary:	User-space access to Linux Kernel SCTP
 Name:		lksctp-tools
-Version:	1.0.17
-Release:	2
+Version:	1.0.18
+Release:	1
 # src/apps/bindx_test.C is GPLv2, I've asked upstream for clarification
 License:	GPLv2 and GPLv2+ and LGPLv2 and MIT
 Group:		System/Libraries
 Url:		http://lksctp.sourceforge.net
-Source0:	http://downloads.sourceforge.net/lksctp/%{name}-%{version}.tar.gz
+Source0:	https://github.com/sctp/lksctp-tools/archive/%{name}-%{version}.tar.gz
 Patch0:		lksctp-tools-1.0.16-libdir.patch
+Patch1:		lksctp-tools-1.0.18-withsctp-use-PACKAGE_VERSION-in-withsctp.h.patch
+Patch2:		lksctp-tools-1.0.18-configure.ac-add-CURRENT-REVISION-and-AGE-for-libsct.patch
+Patch3:		lksctp-tools-1.0.18-build-fix-netinet-sctp.h-not-to-be-installed.patch
+Patch4:		lksctp-tools-1.0.18-build-remove-v4.12-secondary-defines-in-favor-of-HAV.patch
+Patch5:		lksctp-tools-1.0.18-build-fix-probing-for-HAVE_SCTP_SENDV.patch
+Patch6:		lksctp-tools-1.0.18-build-0b0dce7a36fb-actually-belongs-to-v4.19.patch
+Patch7:		lksctp-tools-symver.patch
 BuildRequires:	libtool
 
 %description
@@ -44,38 +50,35 @@ Kernel SCTP."
 
 This package contains the shared library.
 
-%package -n	%{devname}
+%package -n %{devname}
 Summary:	Development files for lksctp-tools
 Group:		Development/C
 Requires:	%{libname} = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
 Provides:	sctp-devel = %{version}-%{release}
 
-%description -n	%{devname}
+%description -n %{devname}
 Development files for lksctp-tools which include man pages, header files,
 static libraries, symlinks to dynamic libraries and some tutorial source code.
 
 %prep
-%setup -q
-%autopatch -p1
-autoreconf -fi
+%autosetup -p1
+[ ! -x ./configure ] && sh bootstrap
 
 %build
-export CC=gcc
-
-CFLAGS="%optflags -fuse-ld=bfd" %configure \
+%configure \
     --disable-static
 
 # remove rpath from libtool
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 
-%make
+%make_build
 
 %install
 rm -f doc/rfc2960.txt doc/states.txt
 
-%makeinstall_std INSTALL="install -p"
+%make_install INSTALL="install -p"
 
 %files
 %{_bindir}/*
