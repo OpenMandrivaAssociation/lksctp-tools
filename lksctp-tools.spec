@@ -5,21 +5,21 @@
 
 Summary:	User-space access to Linux Kernel SCTP
 Name:		lksctp-tools
-Version:	1.0.18
+Version:	1.0.19
 Release:	1
 # src/apps/bindx_test.C is GPLv2, I've asked upstream for clarification
 License:	GPLv2 and GPLv2+ and LGPLv2 and MIT
 Group:		System/Libraries
 Url:		http://lksctp.sourceforge.net
 Source0:	https://github.com/sctp/lksctp-tools/archive/%{name}-%{version}.tar.gz
-Patch0:		lksctp-tools-1.0.16-libdir.patch
-Patch1:		lksctp-tools-1.0.18-withsctp-use-PACKAGE_VERSION-in-withsctp.h.patch
-Patch2:		lksctp-tools-1.0.18-configure.ac-add-CURRENT-REVISION-and-AGE-for-libsct.patch
-Patch3:		lksctp-tools-1.0.18-build-fix-netinet-sctp.h-not-to-be-installed.patch
-Patch4:		lksctp-tools-1.0.18-build-remove-v4.12-secondary-defines-in-favor-of-HAV.patch
-Patch5:		lksctp-tools-1.0.18-build-fix-probing-for-HAVE_SCTP_SENDV.patch
-Patch6:		lksctp-tools-1.0.18-build-0b0dce7a36fb-actually-belongs-to-v4.19.patch
-Patch7:		lksctp-tools-symver.patch
+#Patch0:		lksctp-tools-1.0.16-libdir.patch
+#Patch1:		lksctp-tools-1.0.18-withsctp-use-PACKAGE_VERSION-in-withsctp.h.patch
+#Patch2:		lksctp-tools-1.0.18-configure.ac-add-CURRENT-REVISION-and-AGE-for-libsct.patch
+#Patch3:		lksctp-tools-1.0.18-build-fix-netinet-sctp.h-not-to-be-installed.patch
+#Patch4:		lksctp-tools-1.0.18-build-remove-v4.12-secondary-defines-in-favor-of-HAV.patch
+#Patch5:		lksctp-tools-1.0.18-build-fix-probing-for-HAVE_SCTP_SENDV.patch
+#Patch6:		lksctp-tools-1.0.18-build-0b0dce7a36fb-actually-belongs-to-v4.19.patch
+#Patch7:		lksctp-tools-symver.patch
 BuildRequires:	libtool
 
 %description
