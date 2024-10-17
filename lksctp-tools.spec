@@ -10,7 +10,7 @@ Release:	2
 # src/apps/bindx_test.C is GPLv2, I've asked upstream for clarification
 License:	GPLv2 and GPLv2+ and LGPLv2 and MIT
 Group:		System/Libraries
-Url:		http://lksctp.sourceforge.net
+Url:		https://lksctp.sourceforge.net
 Source0:	https://github.com/sctp/lksctp-tools/archive/%{name}-%{version}.tar.gz
 #Patch0:		lksctp-tools-1.0.16-libdir.patch
 #Patch1:		lksctp-tools-1.0.18-withsctp-use-PACKAGE_VERSION-in-withsctp.h.patch
