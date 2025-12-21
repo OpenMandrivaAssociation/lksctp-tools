@@ -20,6 +20,11 @@ Source0:	https://github.com/sctp/lksctp-tools/archive/%{name}-%{version}.tar.gz
 #Patch5:		lksctp-tools-1.0.18-build-fix-probing-for-HAVE_SCTP_SENDV.patch
 #Patch6:		lksctp-tools-1.0.18-build-0b0dce7a36fb-actually-belongs-to-v4.19.patch
 #Patch7:		lksctp-tools-symver.patch
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	libtool
 
 %description
