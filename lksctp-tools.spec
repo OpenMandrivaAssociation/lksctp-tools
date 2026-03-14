@@ -5,8 +5,8 @@
 
 Summary:	User-space access to Linux Kernel SCTP
 Name:		lksctp-tools
-Version:	1.0.19
-Release:	2
+Version:	1.0.21
+Release:	1
 # src/apps/bindx_test.C is GPLv2, I've asked upstream for clarification
 License:	GPLv2 and GPLv2+ and LGPLv2 and MIT
 Group:		System/Libraries
@@ -22,10 +22,10 @@ Source0:	https://github.com/sctp/lksctp-tools/archive/%{name}-%{version}.tar.gz
 #Patch7:		lksctp-tools-symver.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	libtool-base
 BuildRequires:	slibtool
 BuildRequires:	make
-BuildRequires:	libtool
+BuildSystem:	autotools
+BuildOption:	--disable-static
 
 %description
 This is the lksctp-tools package for Linux Kernel SCTP (Stream Control
@@ -66,24 +66,12 @@ Provides:	sctp-devel = %{version}-%{release}
 Development files for lksctp-tools which include man pages, header files,
 static libraries, symlinks to dynamic libraries and some tutorial source code.
 
-%prep
-%autosetup -p1
+%prep -a
+sed -i -e 's,libtoolize,slibtoolize,g' bootstrap
 [ ! -x ./configure ] && sh bootstrap
 
-%build
-%configure \
-    --disable-static
-
-# remove rpath from libtool
-sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
-sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-
-%make_build
-
-%install
+%install -a
 rm -f doc/rfc2960.txt doc/states.txt
-
-%make_install INSTALL="install -p"
 
 %files
 %{_bindir}/*
